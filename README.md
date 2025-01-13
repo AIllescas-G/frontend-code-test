@@ -1,9 +1,8 @@
 # info.
 
-- Nunca habia utilizado MobX-State-Tree para gestionar los estados de la aplicación, me ha resultrado más sencillo e intuitvo que redux toolkit incluso que Zustand. 
+- Nunca había utilizado MobX-State-Tree para gestionar los estados de la aplicación. Me ha resultado más sencillo e intuitivo que Redux Toolkit, incluso más que Zustand.
 
-- Me ha resultado más sencillo integrar con MobX-State-Tree la librería de react-draggable que la de interact.js. 
-
+- Además, me ha sido más fácil integrar la librería react-draggable con MobX-State-Tree que la de interact.js.
 
 
 
