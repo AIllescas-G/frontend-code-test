@@ -27,7 +27,7 @@ const BoxModel = types
     },
 
     setColor(newColor) {
-      self.color = newColor;  // Cambia el color de la caja
+      self.color = newColor; 
     },
 
     
