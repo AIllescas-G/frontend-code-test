@@ -12,7 +12,7 @@ const Canvas = observer(({ store }) => {
         backgroundColor: "aliceblue",
         overflow: "hidden",
       }}
-     
+    
     >
       {store.boxes.map((box) => (
         <BoxDraggable key={box.id} box={box} />
