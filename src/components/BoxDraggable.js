@@ -1,42 +1,50 @@
-import React from "react";
-import { observer } from "mobx-react";
-import Draggable from "react-draggable";
+import React, { useRef, useEffect } from "react";
+import interact from "interactjs";
+import { observer } from "mobx-react-lite";
 
-function BoxDraggable(props) {
+const BoxDraggable = observer(({ box }) => {
+  const ref = useRef();
 
-  const handleBoxClick = () => {
-    props.onClick(props.box.id); 
-  };
+  useEffect(() => {
+    const element = ref.current;
 
-  const handleDrag = (e, ui) => {
-    const { x, y } = ui;
-    props.onMove(props.box.id, x, y); 
-  };
+    interact(element).draggable({
+      listeners: {
+        move(event) {
+          // Calcula las nuevas coordenadas
+          const newX = box.left + event.dx;
+          const newY = box.top + event.dy;
+
+          // Usa la acción de MobX para actualizar
+          box.setPosition(newX, newY);
+        },
+      },
+    });
+
+    return () => interact(element).unset(); // Limpia la configuración al desmontar
+  }, [box]);
 
   return (
-
-    <Draggable 
-      axis="both"
-      handle=".handle"
-      defaultPosition={{ x: props.box.left, y: props.box.top }}
-      onDrag={handleDrag}
-      position={{ x: props.box.left, y: props.box.top }}
+    <div
+      ref={ref}
+      style={{
+        position: "absolute",
+        width: box.width + "px",
+        height: box.height + "px",
+        backgroundColor: box.color,
+        left: box.left + "px",
+        top: box.top + "px",
+        border: box.selected ? "2px solid black" : "none",
+        cursor: "move",
+      }}
+      onClick={(e) => {
+        e.stopPropagation();
+        box.toggleSelect();
+      }}
     >
-      <div
-        onDoubleClick={handleBoxClick}
-        className={props.box.selected ? "box box-selected box handle" : "box box handle"}
-        style={{
-          backgroundColor: props.box.color,
-          width: props.box.width,
-          height: props.box.height,
-          zIndex: props.box.selected ? 100 : 0,
-        }}
-      >
-        {props.box.selected ? " Change color / Delete " : "Box"}
-      </div>
-    </Draggable>
-
+      {box.color.toUpperCase()}
+    </div>
   );
-}
+});
 
-export default observer(BoxDraggable);
+export default BoxDraggable;

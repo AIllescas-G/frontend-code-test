@@ -1,15 +1,14 @@
 import React from "react";
-import { observer } from "mobx-react";
 import BoxDraggable from "./BoxDraggable";
 
-
-
-function Box(props) {
+const Box = ({ box }) => {
   return (
-    <BoxDraggable {...props}>
-      <div> {props.color} </div>
+    <BoxDraggable box={box}>
+      <div style={{ color: "#fff", textAlign: "center", lineHeight: "100%" }}>
+        {box.color.toUpperCase()}
+      </div>
     </BoxDraggable>
   );
-}
+};
 
-export default observer(Box);
+export default Box;

@@ -1,44 +1,43 @@
 import React, { useState } from "react";
 import { observer } from "mobx-react";
 
-function Toolbar({ store }) {
-
+const Toolbar = observer(({ store }) => {
   const [selectedColor, setSelectedColor] = useState("#000000");
 
   const handleColorChange = (event) => {
+    const newColor = event.target.value;
+    setSelectedColor(newColor);
     store.boxes.forEach((box) => {
-      setSelectedColor(event.target.value);
       if (box.selected) {
-        box.setColor(event.target.value);
+        box.setColor(newColor);
       }
     });
   };
 
-  const handleRemoveBox = () => {
-    store.removeSelectedBoxes(); 
-  };
-
-
   return (
     <div className="toolbar">
-      <button onClick={store.addCreteBox}>Add Box</button>
-      <button
-        onClick={handleRemoveBox}
-        disabled={!store.isAnyBoxSelected()} 
-      >
-        Remove Box
+      <button onClick={() => store.addCreteBox()} className="toolbar-button">
+        Agregar Caja
       </button>
-
+      <button
+        onClick={() => store.removeSelectedBoxes()}
+        className="toolbar-button"
+        disabled={!store.isAnyBoxSelected()}
+      >
+        Eliminar Caja
+      </button>
       <input
         type="color"
         value={selectedColor}
         onChange={handleColorChange}
+        className="toolbar-color-picker"
       />
-
-      <span className="status"
-      > Elementos seleccionados: {store.selectedBoxColors().length}  / color: {store.selectedBoxColors()} </span>
+      <span className="toolbar-status">
+        Seleccionadas: {store.selectedBoxColors().length} / Colores:{" "}
+        {store.selectedBoxColors().join(", ")}
+      </span>
     </div>
   );
-}
+});
 
-export default observer(Toolbar);
+export default Toolbar;
