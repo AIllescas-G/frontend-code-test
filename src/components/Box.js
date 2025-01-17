@@ -1,14 +1,11 @@
 import React from "react";
 import BoxDraggable from "./BoxDraggable";
 
-const Box = ({ box }) => {
+function Box(props) {
   return (
-    <BoxDraggable box={box}>
-      <div style={{ color: "#fff", textAlign: "center", lineHeight: "100%" }}>
-        {box.color.toUpperCase()}
-      </div>
+    <BoxDraggable {...props}>
+      <div> {props.color} </div>
     </BoxDraggable>
   );
-};
-
+}
 export default Box;

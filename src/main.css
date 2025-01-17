@@ -26,6 +26,7 @@ html,
   height: 675px;
   background-color: aliceblue;
   position: relative;
+  overflow: hidden;
 
   .info {
     position: absolute;

@@ -1,21 +1,28 @@
 import React from "react";
 import { observer } from "mobx-react-lite";
-import BoxDraggable from "./BoxDraggable";
+
+import Box from "./Box";
 
 const Canvas = observer(({ store }) => {
   return (
-    <div
-      style={{
-        position: "relative",
-        width: "1200px",
-        height: "675px",
-        backgroundColor: "aliceblue",
-        overflow: "hidden",
-      }}
-    
-    >
-      {store.boxes.map((box) => (
-        <BoxDraggable key={box.id} box={box} />
+    <div className="canva">
+      <div className="info">
+        <p> ❋ Double click to select / deselect </p>
+      </div>
+      {store.boxes.map((box, index) => (
+           <Box
+           key={index}
+           id={box.id}
+           isselected={box.isselected}
+           box={box}
+           color={box.color}
+           left={box.left}
+           top={box.top}
+           width={box.width}
+           height={box.height}
+           onMove={box.handleMove}
+           onClick={box.handleClick}
+         />
       ))}
 
     

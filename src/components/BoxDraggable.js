@@ -6,27 +6,25 @@ const BoxDraggable = observer(({ box }) => {
   const ref = useRef();
 
   useEffect(() => {
-    const element = ref.current;
+    const e = ref.current;
 
-    interact(element).draggable({
+    interact(e).draggable({
       listeners: {
         move(event) {
-          // Calcula las nuevas coordenadas
           const newX = box.left + event.dx;
           const newY = box.top + event.dy;
-
-          // Usa la acción de MobX para actualizar
           box.setPosition(newX, newY);
         },
       },
     });
 
-    return () => interact(element).unset(); // Limpia la configuración al desmontar
+    return () => interact(e).unset();
   }, [box]);
 
   return (
     <div
       ref={ref}
+      className="box"
       style={{
         position: "absolute",
         width: box.width + "px",
@@ -36,8 +34,9 @@ const BoxDraggable = observer(({ box }) => {
         top: box.top + "px",
         border: box.selected ? "2px solid black" : "none",
         cursor: "move",
+        
       }}
-      onClick={(e) => {
+      onDoubleClick={(e) => {
         e.stopPropagation();
         box.toggleSelect();
       }}
