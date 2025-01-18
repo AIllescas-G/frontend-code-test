@@ -1,7 +1,5 @@
 # info.
 
-- Nunca había utilizado MobX-State-Tree para gestionar los estados de la aplicación. Me ha resultado más sencillo e intuitivo que Redux Toolkit, incluso más que Zustand.
-
-- Me ha sido más fácil integrar la librería react-draggable con MobX-State-Tree que la de interact.js.
+- Después de resolver algunos problemas con los estilos del canva, que causaba que los elementos no se desplazasen correctamente, he podido integrar de manera satisfactoria la librería interactjs en la prueba. En esta rama el proyecto usa el localstorage.
 
 
