@@ -34,7 +34,7 @@ const Toolbar = observer(({ store }) => {
       />
       <span className="toolbar-status">
         Seleccionadas: {store.selectedBoxColors().length} / Colores:{" "}
-        {store.selectedBoxColors().join(", ")}
+        {store.selectedBoxColors().join(" ")}
       </span>
     </div>
   );
