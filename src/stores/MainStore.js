@@ -1,4 +1,4 @@
-import { types } from "mobx-state-tree";
+import { onSnapshot, types } from "mobx-state-tree";
 import uuid from "uuid/v4";
 import getRandomColor from "../utils/getRandomColor";
 import BoxModel from "./models/Box";
@@ -11,9 +11,6 @@ const MainStore = types
   .actions(self => {
     return {
 
-      addBox(box) {
-        self.boxes.push(box);
-      },
 
       addCreteBox() {
         const newBox = BoxModel.create({
@@ -34,9 +31,9 @@ const MainStore = types
       },
 
       removeSelectedBoxes() {
-        self.boxes = self.boxes.filter(box => !box.selected); 
+        self.boxes = self.boxes.filter(box => !box.selected);
       },
-      
+
     };
   })
 
@@ -50,15 +47,17 @@ const MainStore = types
     }
   }));
 
-const store = MainStore.create();
 
-const box1 = BoxModel.create({
-  id: uuid(),
-  color: getRandomColor(),
-  left: 0,
-  top: 0,
-  selected: false,
+const loadState = () => {
+  const json = localStorage.getItem("mainStore");
+  if (json) {
+    return JSON.parse(json);
+  }
+};
+
+const store = MainStore.create(loadState());
+onSnapshot(store, snapshot => {
+  localStorage.setItem("mainStore", JSON.stringify(snapshot));
 });
 
-store.addBox(box1);
 export default store;
